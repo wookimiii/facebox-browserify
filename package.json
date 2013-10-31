@@ -1,0 +1,28 @@
+{
+  "name": "facebox-browserify",
+  "version": "0.0.0",
+  "description": "Modal module",
+  "main": "index.js",
+  "scripts": {
+    "test": "tape test/*_test.js"
+  },
+  "dependencies": {
+    "browserify": "*",
+    "jquery-browserify": "*",
+    "brfs": "~0.0.6",
+    "hyperglue": "*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yp-engineering/ypu-request"
+  },
+  "keywords": [
+    "tracking",
+    "request"
+  ],
+  "author": "Andrew Kim",
+  "license": "BSD",
+  "bugs": {
+    "url": "https://github.com/yp-engineering/ypu-request/issues"
+  }
+}

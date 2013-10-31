@@ -1,0 +1,19 @@
+<html>
+<head>
+    <script src='./bundle.js'></script>
+</head>
+<body>
+    <a href="#content" rel='facebox'>Click here</a>
+    <a href="#" rel='' onclick='loading()'>Loading</a>
+    <div id='content' style='display: none'>
+        <h1>This is some cool content</h1>
+    </div>
+    <script>
+        var facebox = require('facebox');
+        facebox.setup("a", {});
+        function loading() {
+            facebox.loading();
+        }
+    </script>
+</body>
+</html>

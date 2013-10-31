@@ -1,0 +1,149 @@
+/* ==================================================================
+    Mixins
+    - Utility mixins
+    - CSS3
+    - Typography
+   ================================================================== */
+.clearfix {
+  *zoom: 1;
+}
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.clearfix:after {
+  clear: both;
+}
+#font .proxima-regular {
+  font-family: 'proxima-nova-regular', 'helvetica neue', helvetica, arial, sans-serif;
+}
+#font .proxima-bold {
+  font-family: 'proxima-nova-bold', 'helvetica neue', helvetica, arial, sans-serif;
+}
+#font .proxima-light {
+  font-family: 'proxima-nova-light', 'helvetica neue', helvetica, arial, sans-serif;
+}
+#font .helvetica {
+  font-family: helvetica, arial, sans-serif;
+}
+#facebox {
+  font-family: 'proxima-nova-regular', 'helvetica neue', helvetica, arial, sans-serif;
+  -webkit-box-shadow: 0 0 18px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 0 0 18px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 18px rgba(0, 0, 0, 0.4);
+  font-size: 14px;
+  line-height: 16px;
+  font-size: 0.875rem;
+  line-height: 1rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2001;
+  background-color: #f0f0f0;
+  color: #333;
+}
+#facebox header {
+  font-family: 'proxima-nova-bold', 'helvetica neue', helvetica, arial, sans-serif;
+  font-size: 16px;
+  line-height: 16px;
+  font-size: 1rem;
+  line-height: 1rem;
+  padding: 15px;
+  border-bottom: 1px solid #ccc;
+  background: #fff;
+}
+#facebox img {
+  border: 0;
+  margin: 0;
+}
+#facebox a {
+  font-size: inherit;
+  line-height: inherit;
+  color: #067ab4;
+}
+#facebox section {
+  *zoom: 1;
+  padding: 15px;
+}
+#facebox section:before,
+#facebox section:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+#facebox section:after {
+  clear: both;
+}
+#facebox .image,
+#facebox .loading {
+  text-align: center;
+}
+#facebox .action {
+  *zoom: 1;
+  font-size: 12px;
+  line-height: 16px;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  float: right;
+  clear: both;
+  margin: 5px 0;
+}
+#facebox .action:before,
+#facebox .action:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+#facebox .action:after {
+  clear: both;
+}
+#facebox .action .btn {
+  float: right;
+  width: auto;
+  display: block;
+  margin-left: 20px;
+  padding: 6px 20px 5px;
+}
+#facebox .action .action-link {
+  padding-left: 0;
+  padding-right: 0;
+}
+#facebox .close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  padding: 2px;
+  background: #fff;
+}
+#facebox .close img {
+  opacity: 0.3;
+}
+#facebox .close:hover img {
+  opacity: 1.0;
+}
+#facebox .content {
+  width: 490px;
+}
+#facebox .content > p:first-child {
+  margin-top: 0;
+}
+#facebox .content > p:last-child {
+  margin-bottom: 0;
+}
+#facebox_overlay {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+}
+.facebox_hide {
+  z-index: -100;
+}
+.facebox_overlayBG {
+  background-color: #000;
+  z-index: 2000;
+}
+
