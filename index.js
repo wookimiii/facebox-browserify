@@ -123,16 +123,6 @@ function init(options) {
         }
     }));
 
-    // optimization: this is to preload the images
-    var preload = [ new Image(), new Image() ];
-    preload[0].src = settings.closeImage;
-    preload[1].src = settings.loadingImage;
-
-    $('#facebox').find('.b:first, .bl').each(function () {
-        preload.push(new Image());
-        preload.slice(-1).src = $(this).css('background-image').replace(/url\((.+)\)/, '$1');
-    });
-    
     if (!skipOverlay()) {
         $('#facebox_overlay').css('opacity', settings.opacity);
         $('#facebox_overlay').click(function () { $document.trigger('close.facebox'); });
