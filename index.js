@@ -5,7 +5,7 @@ var hyperglue = require('hyperglue');
 
 /* globals window, document, Image */
 
-var html = fs.readFileSync('./assets/facebox.html');
+var faceboxHtml = fs.readFileSync('./assets/facebox.html');
 var loadingImage = fs.readFileSync('./assets/loading_base64.txt');
 var closeImage = fs.readFileSync('./assets/closelabel_base64.txt');
 
@@ -14,8 +14,7 @@ var settings = {
     overlay      : true,
     loadingImage : '',
     closeImage   : '',
-    imageTypes   : [ 'png', 'jpg', 'jpeg', 'gif' ],
-    faceboxHtml  : html
+    imageTypes   : new RegExp('\.(png|jpg|jpeg|gif)$', 'i')
 };
 
 var $document = $(document);
@@ -38,9 +37,7 @@ function facebox(data, klass) {
 
 function setup(selector, settings) {
     var $elem = $(selector);
-    console.log($elem);
     if ($elem.length === 0) { return; }
-    console.log('facebox setup');
 
     init(settings);
 
@@ -61,9 +58,9 @@ function setup(selector, settings) {
     return $elem.bind('click.facebox', clickHandler);
 }
 
-// Public, $.facebox methods
-
+// Public, facebox methods
 function loading() {
+    // just in case facebox is not initialized
     init();
 
     if ($('#facebox .loading').length === 1) { return true; }
@@ -108,28 +105,25 @@ function close() {
 
 // Private methods
 
+var inited = false;
 // called one time to setup facebox on this page
 function init(options) {
-    if (settings.inited) {
-        return true;
-    } else {
-        settings.inited = true;
-    }
+    if (inited) { return true; }
+    inited = true;
 
     $document.trigger('init.facebox');
 
-    var imageTypes = settings.imageTypes.join('|');
-    settings.imageTypesRegexp = new RegExp('\.(' + imageTypes + ')$', 'i');
+    if (options) {
+        $.extend(settings, options);
+    }
 
-    if (settings) {$.extend(settings, options); }
-    var html = hyperglue(settings.faceboxHtml, {
+    $('body').append(hyperglue(faceboxHtml, {
         '.closebtn': {
             src: closeImage
         }
-    });
+    }));
 
-    $('body').append(html);
-
+    // optimization: this is to preload the images
     var preload = [ new Image(), new Image() ];
     preload[0].src = settings.closeImage;
     preload[1].src = settings.loadingImage;
@@ -138,6 +132,11 @@ function init(options) {
         preload.push(new Image());
         preload.slice(-1).src = $(this).css('background-image').replace(/url\((.+)\)/, '$1');
     });
+    
+    if (!skipOverlay()) {
+        $('#facebox_overlay').css('opacity', settings.opacity);
+        $('#facebox_overlay').click(function () { $document.trigger('close.facebox'); });
+    }
 
     $('#facebox .close').click(close);
     $('#facebox .close_image').attr('src', settings.closeImage);
@@ -237,14 +236,6 @@ function showOverlay() {
     if (skipOverlay()) { return; }
 
     var $overlay = $('#facebox_overlay');
-
-    if ($overlay.length === 0) {
-        $("body").append('<div id="facebox_overlay" class="facebox_hide"></div>');
-    }
-
-    $overlay.hide().addClass("facebox_overlayBG");
-    $overlay.css('opacity', settings.opacity);
-    $overlay.click(function () { $document.trigger('close.facebox'); });
     $overlay.fadeIn(200);
     return false;
 }
@@ -253,11 +244,7 @@ function hideOverlay() {
     if (skipOverlay()) { return; }
 
     var $overlay = $('#facebox_overlay');
-    $overlay.fadeOut(200, function () {
-        $overlay.removeClass("facebox_overlayBG");
-        $overlay.addClass("facebox_hide");
-        $overlay.remove();
-    });
+    $overlay.fadeOut(200);
 
     return false;
 }
