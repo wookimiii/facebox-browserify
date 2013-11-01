@@ -6,8 +6,8 @@ var hyperglue = require('hyperglue');
 /* globals window, document, Image */
 
 var faceboxHtml = fs.readFileSync('./assets/facebox.html');
-var loadingImage = 'data:image/png;base64,' + fs.readFileSync('./assets/loading.gif', 'base64');
-var closeImage = 'data:image/gif;base64,' + fs.readFileSync('./assets/closelabel.png', 'base64');
+var loadingImage = 'data:image/gif;base64,' + fs.readFileSync('./assets/loading.gif', 'base64');
+var closeImage = 'data:image/png;base64,' + fs.readFileSync('./assets/closelabel.png', 'base64');
 
 var settings = {
     opacity      : 0.2,
