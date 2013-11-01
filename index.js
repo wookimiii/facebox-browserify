@@ -5,6 +5,7 @@ var hyperglue = require('hyperglue');
 
 /* globals window, document, Image */
 
+var html = fs.readFileSync('./assets/facebox.html');
 var loadingImage = fs.readFileSync('./assets/loading_base64.txt');
 var closeImage = fs.readFileSync('./assets/closelabel_base64.txt');
 
@@ -14,15 +15,7 @@ var settings = {
     loadingImage : '',
     closeImage   : '',
     imageTypes   : [ 'png', 'jpg', 'jpeg', 'gif' ],
-    faceboxHtml  : '\
-        <div id="facebox" style="display:none;"> \
-          <div class="popup"> \
-            <div class="content"> \
-            </div> \
-            <a href="#" class="close"> \
-                <img class="closebtn" src="" title="close" class="close_image" /></a> \
-          </div> \
-        </div>'
+    faceboxHtml  : html
 };
 
 var $document = $(document);
