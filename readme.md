@@ -19,7 +19,7 @@ git clone repo
 
 npm install
 
-browserify -t brfs -r ./index:facebox > bundle.js
+browserify -t brfs -r ./index:facebox > bundle.min.js
 
 ````
 

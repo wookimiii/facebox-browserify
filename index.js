@@ -144,7 +144,7 @@ function init(options) {
 }
 
 function insertStyle() {
-    var css = fs.readFileSync('./facebox.css');
+    var css = fs.readFileSync('./assets/facebox.css');
 
     var head = document.head || document.getElementsByTagName('head')[0];
     var style = document.createElement('style');
