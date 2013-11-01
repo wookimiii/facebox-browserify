@@ -22,16 +22,21 @@ var $document = $(document);
 function facebox(data, klass) {
     loading();
 
+
     if (data.ajax) {
-        fillFaceboxFromAjax(data.ajax, klass);
+        fillFaceboxFromAjax(data.ajax);
     } else if (data.image) {
-        fillFaceboxFromImage(data.image, klass);
+        fillFaceboxFromImage(data.image);
     } else if (data.div) {
-        fillFaceboxFromHref(data.div, klass);
+        fillFaceboxFromHref(data.div);
     } else if ('function' === typeof data) {
         data.call($);
     } else {
-        reveal(data, klass);
+        reveal(data);
+    }
+
+    if (klass) {
+        $('#facebox .content').addClass(klass);
     }
 }
 
@@ -45,13 +50,7 @@ function setup(selector, settings) {
         var target = e.currentTarget;
         loading(true);
 
-        // support for rel="facebox.inline_popup" syntax, to add a class
-        // also supports deprecated "facebox[.inline_popup]" syntax
-        var klass = target.rel.match(/facebox\\[?\\.(\\w+)\\]?/);
-        if (klass) {
-            klass = klass[1];
-        }
-        fillFaceboxFromHref(target.href, klass);
+        fillFaceboxFromHref(target.href);
         e.preventDefault();
     }
 
@@ -85,12 +84,9 @@ function loading() {
     $document.trigger('loading.facebox');
 }
 
-function reveal(data, klass) {
+function reveal(data) {
     $document.trigger('beforeReveal.facebox');
 
-    if (klass) {
-        $('#facebox .content').addClass(klass);
-    }
     $('#facebox .content').append(data);
     $('#facebox .loading').remove();
     $('#facebox .popup').children().fadeIn('normal');
@@ -187,34 +183,34 @@ function getPageHeight() {
 //     div: #id
 //   image: blah.extension
 //    ajax: anything else
-function fillFaceboxFromHref(href, klass) {
+function fillFaceboxFromHref(href) {
     // div
     if (href.match(/#/)) {
         var url    = window.location.href.split('#')[0];
         var target = href.replace(url, '');
         if (target === '#') { return; }
-        reveal($(target).html(), klass);
+        reveal($(target).html());
 
     // image
     } else if (href.match($.facebox.settings.imageTypesRegexp)) {
-        fillFaceboxFromImage(href, klass);
+        fillFaceboxFromImage(href);
     // ajax
     } else {
-        fillFaceboxFromAjax(href, klass);
+        fillFaceboxFromAjax(href);
     }
 }
 
-function fillFaceboxFromImage(href, klass) {
+function fillFaceboxFromImage(href) {
     var image = new Image();
     image.onload = function () {
-        reveal('<div class="image"><img src="' + image.src + '" /></div>', klass);
+        reveal('<div class="image"><img src="' + image.src + '" /></div>');
     };
     image.src = href;
 }
 
-function fillFaceboxFromAjax(href, klass) {
+function fillFaceboxFromAjax(href) {
     $.get(href, function (data) {
-        reveal(data, klass);
+        reveal(data);
     });
 }
 
